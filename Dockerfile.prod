@@ -1,0 +1,47 @@
+FROM python:3.10-slim
+
+# 镜像中的工作目录
+WORKDIR /app
+
+# 适配python:3.10-slim（Debian13 trixie）阿里源
+RUN echo "deb http://mirrors.aliyun.com/debian/ trixie main contrib non-free non-free-firmware" > /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian/ trixie-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian/ trixie-backports main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian-security/ trixie-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list
+
+# 安装系统底层依赖（补齐opencv、ocr、编译全套库）
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    zlib1g-dev \
+    libgl1 \
+    libglib2.0-0 \
+    libsm6 \
+    libxrender1 \
+    libxext6 \
+    libpng-dev \
+    libjpeg-dev \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# 升级 pip 到指定版本
+RUN pip install --no-cache-dir pip==26.1.2
+
+# 单独安装PyTorch Linux CPU版本
+RUN pip install --no-cache-dir \
+    torch==2.12.1 \
+    --index-url https://download.pytorch.org/whl/cpu
+
+# 复制依赖文件
+COPY requirements.txt .
+
+# 阿里镜像安装Python依赖
+RUN pip install --no-cache-dir -r requirements.txt \
+    -i https://mirrors.aliyun.com/pypi/simple/ \
+    --trusted-host mirrors.aliyun.com
+
+# 复制项目代码
+COPY . .
+
+# 暴露端口
+EXPOSE 8000

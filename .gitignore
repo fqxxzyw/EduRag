@@ -1,0 +1,9 @@
+# .gitignore 文件内容示例，下列文件或目录都不会受到git的影响
+__pycache__
+.idea
+.venv
+*.pyc
+*.log
+rag_qa/models/*
+logs
+docker-data/

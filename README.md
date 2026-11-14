@@ -167,7 +167,7 @@ EduRag/
 │   │   ├── bert-query-classifier-500/ # 微调后的意图分类器
 │   │   ├── nlp_bert_document-segmentation_chinese-base/ # 语义分段（可选）
 │   │   └── m3e-base/           #   当前主流程未使用
-│   ├── data/                   # 知识文档（被 .gitignore 忽略）
+│   ├── data/                   # 知识文档（按学科存放，可在本地增删）
 │   │   ├── ai_data/            #   学科目录：ai
 │   │   └── java_data/          #   学科目录：java
 │   └── rag_assessment/         # RAGAS 离线评估
@@ -183,7 +183,7 @@ EduRag/
 └── 项目支持虚拟机信息.md        # 教学虚拟机信息与基础设施 compose
 ```
 
-> 注意：`rag_qa/models/`、`rag_qa/data/`、`logs/`、`docker-data/` 已被 `.gitignore` / `.dockerignore` 排除；**模型和知识文档需要单独准备**。
+> 注意：`rag_qa/models/`、`logs/`、`docker-data/` 已被 `.gitignore` 排除，不会进入版本库；`rag_qa/models/`、`rag_qa/data/` 还被 `.dockerignore` 排除在镜像之外。**模型文件需要单独准备**；知识文档可按需增删，构建镜像时需通过卷挂载。
 
 ---
 

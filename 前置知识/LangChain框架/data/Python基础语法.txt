@@ -1,0 +1,44 @@
+Python基础语法
+
+一、变量和数据类型
+
+Python是一种动态类型语言，变量不需要声明类型。
+x = 10          # 整数
+name = "张三"    # 字符串
+pi = 3.14       # 浮点数
+is_valid = True  # 布尔值
+
+二、条件判断
+
+if x > 0:
+    print("正数")
+elif x == 0:
+    print("零")
+else:
+    print("负数")
+
+三、循环
+
+for i in range(5):
+    print(i)
+
+while x > 0:
+    x -= 1
+    print(x)
+
+四、函数
+
+def greet(name):
+    return f"你好，{name}！"
+
+print(greet("世界"))
+
+五、列表和字典
+
+fruits = ["苹果", "香蕉", "橘子"]
+person = {"name": "张三", "age": 25}
+
+for fruit in fruits:
+    print(fruit)
+
+print(person["name"])
